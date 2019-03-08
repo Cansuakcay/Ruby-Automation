@@ -1,0 +1,8 @@
+require 'rest-client'
+require 'json'
+response = RestClient::Request.new(
+    :method => :get,
+    :url => 'https://swapi.co/api/people/1/'
+).execute
+results = JSON.parse(response.to_str)['name']
+puts results
