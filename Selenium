@@ -1,0 +1,31 @@
+require 'selenium-webdriver'
+Selenium::WebDriver::Chrome.driver_path="C:/Selenium/chromedriver.exe"
+caps = Selenium::WebDriver::Remote::Capabilities.chrome(:chrome_options => {detach: true })
+driver=Selenium::WebDriver.for :chrome, desired_capabilities: caps
+driver.get("https://www.seleniumeasy.com/test/input-form-demo.html")
+sleep 2
+driver.manage.window.maximize
+driver.find_element(:name,"first_name").send_key("Cansu")
+driver.find_element(:name,"last_name").send_key("Akcay")
+driver.find_element(:name,"email").send_key("cansu@casoftwaretesting.co.uk")
+driver.find_element(:name,"phone").send_key("07521360915")
+driver.find_element(:name,"address").send_key("West London")
+driver.find_element(:name,"city").send_key("London")
+select_box=driver.find_element(:name,'state')
+options=select_box.find_elements(:tag_name=>"option")
+options.each do |option_field|
+  if option_field.text == ' Florida'
+    option_field.click
+    break
+  end
+end
+driver.find_element(:name,"zip").send_key("W3 6NZ")
+driver.find_element(:name,"website").send_key(driver.current_url)
+driver.find_element(:xpath => "//*[@name='hosting' and @value='no']").click()
+arr = [22, 24, 0, 100, 4, 111, 2602, 18]
+arr2 =  [60, 33, 1719, 25, 19, 13, -21]
+x = arr.group_by(&:odd?).values.sort_by(&:count)[0][0]
+y = arr2.group_by(&:odd?).values.sort_by(&:count)[0][0]
+driver.find_element(:name,"comment").send_key(x,y)
+driver.find_element(:id, "contact_form").click()
+driver.close
